@@ -13,14 +13,14 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title ,id: 'title' %>
   </div>
   <div class="field">
     <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.text_field :content ,id: 'content'%>
   </div>
   <div class="field">
-    <%= form.submit %>
+    <%= form.submit '登録する' %>
   </div>
 
 <% end %>
