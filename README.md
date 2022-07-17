@@ -1,24 +1,28 @@
-# README
+# Table Structure
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Model_name: User
+| column_name | Data_type |
+| :---: | :---: |
+| email | string |
+| password_digest | string |
+| permition | boolean |
 
-Things you may want to cover:
+## Model_name: Task
+| column_name | Data_type |
+| :---: | :---: |
+| name | string |
+| content | string |
+| deadline | date |
+| priority | integer |
+| status | string |
 
-* Ruby version
+## Model_name: Label_master
+| column_name | Data_type |
+| :---: | :---: |
+| name | string |
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Model_name: Label_child
+| column_name | Data_type |
+| :---: | :---: |
+| Label_master_id | integer |
+| Task_id | integer |
