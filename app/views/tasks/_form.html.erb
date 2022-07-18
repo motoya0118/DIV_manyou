@@ -20,6 +20,10 @@
     <%= form.text_field :content ,id: 'content'%>
   </div>
   <div class="field">
+    <%= form.label :deadline %>
+    <%= form.date_field :deadline ,id: 'deadline'%>
+  </div>
+  <div class="field">
     <%= form.submit '登録する' %>
   </div>
 

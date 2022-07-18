@@ -47,6 +47,16 @@ RSpec.describe 'タスク管理機能', type: :system do
           # ここに実装する
         end
     end
+    context 'タスクが終了期日の降順に並んでいる場合' do
+        it '終了期日が近いタスクが一番上に表示される' do
+          FactoryBot.create(:task, title: 'task2',deadline: '1999-07-18')
+          visit tasks_path
+          click_on '終了期限でソートする'
+          task_list = all('.title')
+          expect(task_list[0].text).to eq 'task'
+          # ここに実装する
+        end
+    end
   end
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
