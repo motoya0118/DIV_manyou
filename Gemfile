@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', git: 'https://github.com/rspec/rspec-rails.git', tag: 'v4.0.0.beta3'
   gem 'factory_bot_rails'
   gem 'rexml'
+  gem 'pry-rails'
 end
 
 group :development do
