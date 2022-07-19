@@ -12,27 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title ,id: 'title' %>
+    <%= form.label :title ,class:'form-label'%>
+    <%= form.text_field :title ,id: 'title' ,class:'form-control w-50'%>
   </div>
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content ,id: 'content'%>
+    <%= form.label :content ,class:'form-label'%>
+    <%= form.text_field :content ,id: 'content',class:'form-control w-50'%>
   </div>
   <div class="field">
-    <%= form.label :deadline %>
-    <%= form.date_field :deadline ,id: 'deadline'%>
+    <%= form.label :deadline ,class:'form-label'%>
+    <%= form.date_field :deadline ,id: 'deadline',class:'form-control w-50'%>
   </div>
   <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]], include_blank: "選択して下さい"%>
+    <%= form.label :status ,class:'form-label'%>
+    <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]], include_blank: "選択して下さい",class:'form-control'%>
   </div>
   <div class="field">
-    <%= form.label :priority %>
-    <%= form.select :priority, [["高","高"],["中","中"],["低","低"]], include_blank: "選択して下さい"%>
+    <%= form.label :priority ,class:'form-label'%>
+    <%= form.select :priority, [["高","高"],["中","中"],["低","低"]], include_blank: "選択して下さい",class:'form-control'%>
   </div>
   <div class="field">
-    <%= form.submit '登録する' %>
+    <%= form.submit '登録する' ,class:'btn btn-primary'%>
   </div>
 
 <% end %>
