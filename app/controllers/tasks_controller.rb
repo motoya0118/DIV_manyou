@@ -5,20 +5,20 @@ class TasksController < ApplicationController
       title = params[:task][:title]
       status = params[:task][:status]
       if title.present? && status.present?
-        @tasks = Task.title_status(title,status)
+        @tasks = Task.title_status(title,status).page(params[:page])
       elsif title.present?
-        @tasks = Task.title(title)
+        @tasks = Task.title(title).page(params[:page])
       elsif status.present?
-        @tasks = Task.status(status)
+        @tasks = Task.status(status).page(params[:page])
       else
-        @tasks = Task.created_at
+        @tasks = Task.created_at.page(params[:page])
       end
     elsif params[:sort_expired].present?
-      @tasks = Task.deadline
+      @tasks = Task.deadline.page(params[:page])
     elsif params[:sort_priority].present?
-      @tasks = Task.priority
+      @tasks = Task.priority.page(params[:page])
     else
-      @tasks = Task.created_at
+      @tasks = Task.created_at.page(params[:page])
     end
   end
 
@@ -64,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title,:content,:deadline,:sort_expired,:created_at,:status,:priority,:sort_priority)
+    params.require(:task).permit(:title,:content,:deadline,:sort_expired,:created_at,:status,:priority,:sort_priority,:page)
   end
 
 end
