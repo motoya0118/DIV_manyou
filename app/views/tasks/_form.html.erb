@@ -28,6 +28,10 @@
     <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]], include_blank: "選択して下さい"%>
   </div>
   <div class="field">
+    <%= form.label :priority %>
+    <%= form.select :priority, [["高","高"],["中","中"],["低","低"]], include_blank: "選択して下さい"%>
+  </div>
+  <div class="field">
     <%= form.submit '登録する' %>
   </div>
 

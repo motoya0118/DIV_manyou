@@ -13,10 +13,12 @@ class TasksController < ApplicationController
       else
         @tasks = Task.created_at
       end
-    elsif params[:sort_expired].nil?
-      @tasks = Task.created_at
-    else
+    elsif params[:sort_expired].present?
       @tasks = Task.deadline
+    elsif params[:sort_priority].present?
+      @tasks = Task.priority
+    else
+      @tasks = Task.created_at
     end
   end
 
@@ -62,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title,:content,:deadline,:sort_expired,:created_at,:status)
+    params.require(:task).permit(:title,:content,:deadline,:sort_expired,:created_at,:status,:priority,:sort_priority)
   end
 
 end

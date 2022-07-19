@@ -93,6 +93,20 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_content 'task'
         expect(page).not_to have_content 'test'
       end
+      it '優先順位でソートするというリンクを押すと、優先順位の高い順に並び替えられたタスク一覧が表示される' do
+        FactoryBot.create(:task, title: 'test', priority: 2)
+        FactoryBot.create(:task, title: 'example', priority: 1)
+        visit tasks_path
+        click_link '優先度でソートする'
+        status_list = all('.priority')
+        text_list = []
+        status_list.each do |f|
+          text_list.push(f.text)
+        end
+        expect(text_list[0]).to eq '高'
+        expect(text_list[1]).to eq '中'
+        expect(text_list[2]).to eq '低'
+      end
     end
   end
 
