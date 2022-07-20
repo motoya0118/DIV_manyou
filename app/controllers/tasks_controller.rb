@@ -1,7 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %w[edit update show destroy]
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    if params[:task].present?
+      title = params[:task][:title]
+      status = params[:task][:status]
+      if title.present? && status.present?
+        @tasks = Task.title_status(title,status).page(params[:page])
+      elsif title.present?
+        @tasks = Task.title(title).page(params[:page])
+      elsif status.present?
+        @tasks = Task.status(status).page(params[:page])
+      else
+        @tasks = Task.created_at.page(params[:page])
+      end
+    elsif params[:sort_expired].present?
+      @tasks = Task.deadline.page(params[:page])
+    elsif params[:sort_priority].present?
+      @tasks = Task.priority.page(params[:page])
+    else
+      @tasks = Task.created_at.page(params[:page])
+    end
   end
 
   def new
@@ -46,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title,:content)
+    params.require(:task).permit(:title,:content,:deadline,:sort_expired,:created_at,:status,:priority,:sort_priority,:page)
   end
 
 end
