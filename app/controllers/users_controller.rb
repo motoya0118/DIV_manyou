@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  skip_before_action :login_required, only: [:new, :create]
+  skip_before_action :login_required, only:[:new,:create]
   before_action :else_user, only: [:edit,:show]
 
   def index
     @users = User.all
   end
   def new
-    redirect_to tasks_path, notice: 'ログイン中です'
+    redirect_to tasks_path, notice: 'ログイン中です' if current_user
     @user = User.new
   end
   def create
