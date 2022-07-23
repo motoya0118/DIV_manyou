@@ -1,0 +1,29 @@
+<h1>Admin Users</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Permission</th>
+      <th>タスク登録数</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.permission %></td>
+        <td><%= user.tasks.size %></td>
+          <td><%= link_to 'Show', admin_user_path(user) %></td>
+          <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+          <td><%= link_to 'permission', admin_user_path(user,user: {permission: user.permission ? false : true}), method: :put %></td>
+          <td class="destroy"><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' },id:'delete_button' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_admin_user_path %>
