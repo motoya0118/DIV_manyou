@@ -6,6 +6,7 @@ describe 'STEP4', type: :model do
     let!(:user) { FactoryBot.create(:user) }
     # 必要に応じて、テストデータの内容を変更して構わない
     it 'ユーザの新規登録ができること' do
+      visit new_session_path
 
     end
       end

@@ -13,4 +13,5 @@ FactoryBot.define do
     title { 'Factoryで作ったデフォルトのタイトル２' }
     content { 'Factoryで作ったデフォルトのコンテント２' }
   end
+
 end
