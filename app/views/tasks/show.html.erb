@@ -4,12 +4,15 @@
   <tr>
     <th>タスク名</th>
     <th>内容</th>
+    <th>期日</th>
+    <th>作成者</th>
   </tr>
 
   <tr>
     <td><%= @task.title %></td>
     <td><%= @task.content %></td>
     <td><%= @task.deadline %></td>
+    <td><%= @task.user.email %></td>
   </tr>
 </table>
 
