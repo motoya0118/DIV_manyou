@@ -14,4 +14,27 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
   end
 
+  factory :label_task, class: Task do
+    trait :with_label do
+      title { 'Factoryで作ったデフォルトのタイトル２' }
+      content { 'Factoryで作ったデフォルトのコンテント２' }
+      user { User.first}
+      after(:build) do |task|
+        task.labels << FactoryBot.build(:label_master, :with_label_master)
+      end
+    end
+  end
+
+  factory :label_task2, class: Task do
+    trait :with_label2 do
+      title { 'Factoryで作ったデフォルトのタイトル２' }
+      content { 'Factoryで作ったデフォルトのコンテント２' }
+      user { User.first}
+      after(:build) do |task|
+        task.labels << FactoryBot.build(:label_master2, :with_label_master2)
+      end
+    end
+
+  end
+
 end

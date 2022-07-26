@@ -11,4 +11,11 @@ FactoryBot.define do
     password_confirmation { "1111" }
     permission { false }
   end
+
+  factory :user_task ,class: User do
+    email { "user@aaa.com" }
+    password { "1111" }
+    password_confirmation { "1111" }
+    permission { false }
+  end
 end
