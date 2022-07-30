@@ -6,6 +6,8 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
   has_many :tasks,dependent: :destroy
   has_many :label_masters, dependent: :destroy
+  has_many :groupusers,dependent: :destroy
+  has_many :groups_through, through: :groupusers, source: :group
 
   has_secure_password
 

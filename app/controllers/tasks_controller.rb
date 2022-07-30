@@ -2,6 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: %w[edit update show destroy]
 
   def index
+    @timenear_task = current_user.tasks.where("deadline BETWEEN ? AND ?", Time.zone.today - 3, Time.zone.today)
+    @timefails_task = current_user.tasks.where("deadline < ?", Time.zone.today)
     if params[:task].present?
       title = params[:task][:title]
       status = params[:task][:status]
