@@ -6,6 +6,7 @@
     <th>内容</th>
     <th>期日</th>
     <th>作成者</th>
+    <th>ラベル</th>
   </tr>
 
   <tr>
@@ -13,6 +14,11 @@
     <td><%= @task.content %></td>
     <td><%= @task.deadline %></td>
     <td><%= @task.user.email %></td>
+    <td>
+      <% @task.labels.each do |label| %>
+        <%= label.name + " | " %>
+      <% end %>
+    </td>
   </tr>
 </table>
 

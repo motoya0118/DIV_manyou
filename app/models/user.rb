@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :password_digest,presence: true
   before_validation { email.downcase! }
   has_many :tasks,dependent: :destroy
+  has_many :label_masters, dependent: :destroy
 
   has_secure_password
 
