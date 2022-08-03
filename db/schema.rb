@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_29_073524) do
+ActiveRecord::Schema.define(version: 2022_08_01_115317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "label_children", force: :cascade do |t|
     t.bigint "task_id"
@@ -32,6 +39,22 @@ ActiveRecord::Schema.define(version: 2022_07_29_073524) do
     t.index ["user_id"], name: "index_label_masters_on_user_id"
   end
 
+  create_table "reads", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_reads_on_task_id"
+    t.index ["user_id"], name: "index_reads_on_user_id"
+  end
+
+  create_table "table_groupusers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "group_id"
+    t.index ["group_id"], name: "index_table_groupusers_on_group_id"
+    t.index ["user_id"], name: "index_table_groupusers_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.string "content", null: false
@@ -41,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_07_29_073524) do
     t.integer "status", default: 0, null: false
     t.integer "priority", default: 0, null: false
     t.bigint "user_id"
+    t.string "image"
     t.index ["content"], name: "index_tasks_on_content"
     t.index ["created_at"], name: "index_tasks_on_created_at"
     t.index ["deadline"], name: "index_tasks_on_deadline"
@@ -55,10 +79,15 @@ ActiveRecord::Schema.define(version: 2022_07_29_073524) do
     t.boolean "permission", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "icon"
   end
 
   add_foreign_key "label_children", "label_masters"
   add_foreign_key "label_children", "tasks"
   add_foreign_key "label_masters", "users"
+  add_foreign_key "reads", "tasks"
+  add_foreign_key "reads", "users"
+  add_foreign_key "table_groupusers", "groups"
+  add_foreign_key "table_groupusers", "users"
   add_foreign_key "tasks", "users"
 end

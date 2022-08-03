@@ -1,0 +1,19 @@
+<h1>期日間近タスクのお知らせ</h1>
+
+<% if @tasks[:timenear_task].length > 0 %>
+  <h4>期日間近タスク</h4>
+  <% @tasks[:timenear_task].each do |task| %>
+    <p>title: <%= task.title%></p>
+    <p>deadline: <%= l task.deadline %></p>
+    <br>
+  <% end %>
+<% end %>
+
+<% if @tasks[:timefails_task].length > 0 %>
+  <h4>期日超過タスク</h4>
+  <% @tasks[:timefails_task].each do |task| %>
+    <p>title: <%= task.title %></p>
+    <p>deadline: <%= l task.deadline %></p>
+    <br>
+  <% end %>
+<% end %>

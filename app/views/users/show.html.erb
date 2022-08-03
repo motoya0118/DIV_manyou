@@ -1,5 +1,9 @@
 <p id="notice"><%= notice %></p>
 
+<% if @user.icon.present?%>
+  <div><%= image_tag(@user.icon_url, :alt => @user.email)%></div>
+<% end %>
+
 <p>
   <strong>Email:</strong>
   <%= @user.email %>

@@ -1,4 +1,20 @@
-<p class="notice"><%= notice %></p>
+<% if @timenear_task.present? %>
+  <h2 class="text-info"">期日間近のタスク</h2>
+  <ul>
+    <% @timenear_task.each do |task|%>
+      <li><%= task.title %></li>
+    <% end %>
+  </ul>
+<% end%>
+<% if @timefails_task.present? %>
+  <h2 class="text-danger">期日超過タスク</h2>
+  <ul>
+    <% @timefails_task.each do |task|%>
+      <li><%= task.title %></li>
+    <% end %>
+  </ul>
+<% end%>
+
 <h2>タスク一覧</h2>
 
 <%= form_with(method: 'get' ,url: "/tasks", local: true , scope: 'task') do |form| %>
@@ -53,3 +69,12 @@
 <%= link_to "通常タスク一覧", tasks_path %><br>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %><br>
 <%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %>
+
+<%= month_calendar(attribute: :deadline, events: @tasks) do |date,events| %>
+  <%= date.day %>
+   <% events.each do |event| %>
+    <div>
+      <%= event.title %>
+    </div>
+  <% end %>
+<% end %>
