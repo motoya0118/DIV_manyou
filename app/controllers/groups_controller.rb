@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/1 or /groups/1.json
   def show
+    @tasks = Task.where(user_id: Group.find(params[:id]).table_groupusers.pluck(:user_id)).page(params[:page])
   end
 
   # GET /groups/new
@@ -15,7 +16,7 @@ class GroupsController < ApplicationController
     @group = Group.new
   end
 
-  # GET /groups/1/edit
+  # GET /groups/edit
   def edit
   end
 
@@ -25,8 +26,14 @@ class GroupsController < ApplicationController
     respond_to do |format|
       @group.admin = current_user.id
       if @group.save
-        format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
-        format.json { render :show, status: :created, location: @group }
+        @groupuser = TableGroupuser.new(user_id: current_user.id, group_id: @group.id)
+        if @groupuser.save
+          format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
+          format.json { render :show, status: :created, location: @group }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @group.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @group.errors, status: :unprocessable_entity }
@@ -65,6 +72,6 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:name, :admin)
+      params.require(:group).permit(:name, :admin, :id)
     end
 end

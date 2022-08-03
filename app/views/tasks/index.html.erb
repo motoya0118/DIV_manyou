@@ -69,3 +69,12 @@
 <%= link_to "通常タスク一覧", tasks_path %><br>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %><br>
 <%= link_to "優先度でソートする", tasks_path(sort_priority: "true") %>
+
+<%= month_calendar(attribute: :deadline, events: @tasks) do |date,events| %>
+  <%= date.day %>
+   <% events.each do |event| %>
+    <div>
+      <%= event.title %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,8 +1,22 @@
 <p id="notice"><%= notice %></p>
+<% if @groupuser.present?%>
+  <% if @groupuser.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@groupuser.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% @groupuser.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
+
 
 <h1>Groups</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
@@ -16,14 +30,18 @@
       <tr>
         <td><%= group.name %></td>
         <td><%= User.find(group.admin).email %></td>
-        <td><%= link_to 'Show', group %></td>
-        <td><%= link_to 'Edit', edit_group_path(group) %></td>
-        <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% groupuser = current_user.table_groupusers.find_by(group_id: group.id)%>
+          <% if groupuser.present? %>
+            <td><%= link_to 'Show', group %></td>
+          <% end %>
         <% if group.admin == current_user.id %>
-          <% if group.groupusers.present? %>
-            <td><%= link_to 'お気に入り解除する', group_path(id: group.id), method: :delete, class: 'btn btn-danger' %></td>
+          <td><%= link_to 'Edit', edit_group_path(group) %></td>
+          <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <% if groupuser.present? %>
+            <td><%= link_to '離脱する', table_groupuser_path(id: groupuser.id), method: :delete, class: 'btn btn-danger' %></td>
           <% else %>
-            <td><%= link_to 'お気に入りする', groups_path(user_id: current_user.id), method: :post, class: 'btn btn-primary' %></td>
+            <td><%= link_to '加入する', table_groupusers_path(user_id: current_user.id, group_id: group.id), method: :post, class: 'btn btn-primary' %></td>
           <% end %>
         <% end %>
       </tr>

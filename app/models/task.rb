@@ -7,7 +7,9 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :label_childs, dependent: :destroy
   has_many :labels, through: :label_childs, source: :label_master
+  has_many :reads ,dependent: :destroy
   accepts_nested_attributes_for :label_childs,allow_destroy: true,reject_if: lambda {|attributes| attributes['name'].blank?}
+  mount_uploader :image, ImageUploader
   enum status: {未着手:0,着手中:1,完了:2}
   enum priority: {低:0,中:1,高:2}
   scope :created_at, -> {order(created_at: "DESC")}
@@ -17,4 +19,9 @@ class Task < ApplicationRecord
   scope :title_status, -> (title,status){where("title LIKE ?","%#{title}%").where(status: status)}
   scope :priority, -> {order(priority: "DESC")}
   #scope :label_ids, -> (label_id){joins(:labels).where(labels: { id: label_id })}
+
+  # def start_time
+  #   self.my_related_model.deadline ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  # end
+
 end

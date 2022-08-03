@@ -1,14 +1,34 @@
 <p id="notice"><%= notice %></p>
+<h1><%= @group.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
+<table class="table">
+  <tr>
+    <th>タスク名</th>
+    <th>内容</th>
+    <th>終了期日</th>
+    <th>ステータス</th>
+    <th>優先順位</th>
+    <th>作成者</th>
+    <th>ラベル</th>
+    <th>既読</th>
+  </tr>
 
-<p>
-  <strong>Admin:</strong>
-  <%= @group.admin %>
-</p>
-
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td class="title"><%= task.title %></td>
+      <td><%= task.content %></td>
+      <td><%= task.deadline %></td>
+      <td class='status'><%= task.status %></td>
+      <td class='priority'><%= task.priority %></td>
+      <td class='email'><%= task.user.email %></td>
+      <td class="label">
+        <% task.labels.each do |label| %>
+          <%= label.name + " | " %>
+        <% end %>
+      </td>
+      <td><%= task.reads.find_by(user_id: current_user.id) ? '既読' : '未読'%>
+      <td><%= link_to 'Show', task %></td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate @tasks %>

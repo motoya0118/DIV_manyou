@@ -4,6 +4,9 @@ class TasksController < ApplicationController
   def index
     @timenear_task = current_user.tasks.where("deadline BETWEEN ? AND ?", Time.zone.today - 3, Time.zone.today)
     @timefails_task = current_user.tasks.where("deadline < ?", Time.zone.today)
+    # start_date = params.fetch(:start_date, Date.today).to_date
+    # @deadlines = Task.where(starts_at: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
+    # binding.pry
     if params[:task].present?
       title = params[:task][:title]
       status = params[:task][:status]
@@ -53,6 +56,11 @@ class TasksController < ApplicationController
   end
 
   def show
+    unless @task.reads.find_by(user_id: current_user.id)
+      @read = Read.new(user_id: current_user.id, task_id: params[:id])
+      @read.save
+    end
+
   end
 
   def destroy
@@ -80,6 +88,7 @@ class TasksController < ApplicationController
       :sort_priority,
       :page,:user_id,
       :label_id,
+      :image,
       label_ids: [],
       label_childs_attributes: %w[name user_id]
     )

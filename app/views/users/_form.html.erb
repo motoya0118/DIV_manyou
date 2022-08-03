@@ -26,7 +26,11 @@
       <%= form.label :password_confirmation ,class: "form-label"%>
       <%= form.password_field :password_confirmation ,class: "form-control w-75 mx-auto",id:'password_confirmation'%>
     </div>
-
+    <div class="field">
+    <%= form.label :icon %>
+    <%= image_tag(user.icon_url(:thumb), :width => 80, :height => 80) %>
+    <%= form.file_field :icon %>
+  </div>
     <div class="actions text-center">
       <%= form.submit "登録", class: "btn btn-primary w-75 mx-auto m-2"%>
     </div>

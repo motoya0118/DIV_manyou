@@ -39,4 +39,8 @@
       </tr>
     <% end %>
   <% end %>
+
 </table>
+
+<h2>ラベル使用頻度</h2>
+<%= column_chart  LabelChild.joins(:label_master).group(:name).count %>

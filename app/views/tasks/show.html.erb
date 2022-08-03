@@ -7,6 +7,7 @@
     <th>期日</th>
     <th>作成者</th>
     <th>ラベル</th>
+    <th>file</th>
   </tr>
 
   <tr>
@@ -19,6 +20,10 @@
         <%= label.name + " | " %>
       <% end %>
     </td>
+    <% if @task.image? %>
+      <!-- 画像表示 --> 
+      <td> <%= link_to "link", @task.image.url %></td>
+    <% end %>
   </tr>
 </table>
 
