@@ -5,8 +5,7 @@ class TasksController < ApplicationController
     @timenear_task = current_user.tasks.where("deadline BETWEEN ? AND ?", Time.zone.today - 3, Time.zone.today)
     @timefails_task = current_user.tasks.where("deadline < ?", Time.zone.today)
     # start_date = params.fetch(:start_date, Date.today).to_date
-    # @deadlines = Task.where(starts_at: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
-    # binding.pry
+    # @deadlines = Task.where(starts_at: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week
     if params[:task].present?
       title = params[:task][:title]
       status = params[:task][:status]
@@ -17,7 +16,7 @@ class TasksController < ApplicationController
         @tasks = current_user.tasks.where(id: LabelChild.where(label_master_id: label_id).pluck(:task_id)).page(params[:page])
       elsif title.present?
         @tasks = current_user.tasks.title(title).page(params[:page])
-      elsif status.present?
+      elsif status.present?e
         @tasks = current_user.tasks.status(status).page(params[:page])
       else
         @tasks = current_user.tasks.created_at.page(params[:page])
